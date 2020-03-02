@@ -1,0 +1,35 @@
+<div class="container">
+    <form [formGroup]="adminForm" class="example-form" fxLayout="column" (ngSubmit)="onFormSubmit()">
+        
+            <mat-form-field>
+                <mat-label>Admin Name</mat-label>
+                <input matInput formControlName="adminName" matTooltip="Enter Admin Name">
+                <mat-error *ngIf="hasError('adminName','required')">Application Name is required.</mat-error>
+                <mat-error *ngIf="hasError('adminName','maxlength')">Application Name Max.Length is 50.</mat-error>
+                <mat-error *ngIf="hasError('adminName','minlength')">Application Name Min.Length is 5.</mat-error>
+            </mat-form-field>
+       
+            <mat-form-field>
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender" (selectionChange)="onGenderSelected($event)">
+                    <mat-option [value]="-1">(Select)</mat-option>
+                    <mat-option value="male">Male</mat-option>
+                    <mat-option value="female">Female</mat-option>
+                </mat-select>
+                <mat-error *ngIf="hasError('gender','required')">Gender is required</mat-error>
+            </mat-form-field>
+            <mat-form-field *ngIf="isGenderSelected">
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="adminType">
+                    <mat-option [value]="-1">(Select)</mat-option>
+                    <mat-option value="A1">A1</mat-option>
+                    <mat-option value="A2">A2</mat-option>
+                </mat-select>
+                <mat-error *ngIf="hasError('adminType','required')">Admin Type is required</mat-error>
+            </mat-form-field>
+            <div class="example-button-row" fxLayoutAlign="center" fxLayoutGap="5px">
+                <button mat-raised-button color="primary" [disabled]='!adminForm.valid'>Submit</button>
+                <button type="reset" mat-raised-button>clear</button>
+            </div>
+    </form>
+</div>
