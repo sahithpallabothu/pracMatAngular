@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Admin } from '../bussinessclass/admin';
+import {AdminService} from '../bussinessservices/admin-service.service';
+import { Observable } from 'rxjs';
+
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -9,7 +12,8 @@ import { Admin } from '../bussinessclass/admin';
 export class AdminComponent implements OnInit {
   adminForm: FormGroup;
   adminData:Admin;
-  constructor(private formbulider: FormBuilder) { }
+  constructor(private formbulider: FormBuilder,
+             private adminService:AdminService){ }
   isGenderSelected:boolean;
   ngOnInit() {
     this.adminForm=this.formbulider.group({
@@ -23,6 +27,9 @@ export class AdminComponent implements OnInit {
       this.adminData=this.adminForm.value;
       if(this.adminForm.valid){
         console.log(this.adminData);
+        this.adminService.createAdmin(this.adminData).subscribe(()=>{
+
+        },)
       }
   }
   
